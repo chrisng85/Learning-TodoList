@@ -29,6 +29,12 @@ data = data || {};
     "2" : "#inProgress",
     "3" : "#completed"
   };
+  
+  var code_wrappers = {
+    "1" : "#pending-wrapper",
+    "2" : "#inProgress-wrapper",
+    "3" : "#completed-wrapper"
+  };
 
   todo.init = function (options) {
 
@@ -91,7 +97,7 @@ data = data || {};
 
   // Add Task
   var generateElement = function(params){
-    var parent = $(codes[params.code]),
+    var parent = $(code_wrappers[params.code]),
         wrapper,
         info = "";
 

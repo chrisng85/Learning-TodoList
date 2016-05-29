@@ -2,10 +2,11 @@
 <html>
   <head>
     <title>PRF192x - Assignment 4</title>
+    <meta charset="UTF-8">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js" integrity="sha256-xNjb53/rY+WmG+4L6tTl9m6PpqknWZvRt0rO1SRnJzw=" crossorigin="anonymous"></script>
     <link type="text/css" rel="stylesheet" href="css/jquery-ui.min.css">
-    <link type="text/css" rel="stylesheet" href="/css/style.css">
+    <link type="text/css" rel="stylesheet" href="css/style.css">
   </head>
   
   <body>
@@ -13,23 +14,26 @@
       <h2>TO DO LIST</h2>
       
       <div class="task-list task-container" id="pending">
-        <h4>To Do</h4>
+        <h4 class="box-title">To Do ▼</h4>
+        <div class="collapse-box" id="pending-wrapper"></div>
       </div>
 
       <div class="task-list task-container" id="inProgress">
-        <h4>In Progress</h4>
+        <h4 class="box-title">In Progress ▼</h4>
+        <div class="collapse-box" id="inProgress-wrapper"></div>
       </div>
 
       <div class="task-list task-container" id="completed">
-        <h4>Completed</h4>
+        <h4 class="box-title">Completed ▼</h4>
+        <div class="collapse-box" id="completed-wrapper"></div>
       </div>
 
       <div class="task-list">
-        <h4>Add a task</h4>
+        <h4 class="box-title">Add a task ▼</h4>
         <form id="todo-form">
           <input type="text" placeholder="Title" />
           <input type="text" placeholder="Assigned to" />
-          <textarea placeholder="Descrtipion"></textarea>
+          <textarea placeholder="Description"></textarea>
           <input id="datepicker" type="text" placeholder="Due Date (dd/mm/yy)" />
           <input type="button" class="btn" value="Add Task"  onclick="todo.add();" />
         </form>
@@ -46,6 +50,18 @@
 
       $(".task-container").droppable();
       $(".todo-task").draggable({ revert: "valid", revertDuration:200 });
+      
+      $(".box-title").click(function() {
+        $header = $(this);
+        $content = $header.next();
+        $content.slideToggle(400, function() {
+          var str = $header.text();
+          str = str.substring(0, str.length - 1);
+          $header.text(function() {
+            return $content.is(":visible") ? (str + "▼") : (str + "▲");
+          });
+        }); 
+      });
       todo.init();
     </script>
     
